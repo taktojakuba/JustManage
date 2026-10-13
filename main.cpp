@@ -26,13 +26,15 @@ static int do_editor() {
     return 0;
 }
 
-static int do_fscreen() {
+static int do_fscreen(std::string output = "HDMI-A-1") {
     char ts[32];
     time_t t = time(nullptr);
     strftime(ts, sizeof ts, "%F_%H-%M-%S", localtime(&t));
     std::string f = std::string(getenv("HOME")) + "/Pictures/Screenshots/" + ts + ".png";
 
-    if (system(("grim -o HDMI-A-1 \"" + f + "\"").c_str())) return 1;
+    std::string cmd = "grim -o \"" + output + "\" \"" + f + "\"";
+    if (system(cmd.c_str())) return 1;
+
     system(("notify-send -u low 'Screenshot saved' \"" + f + "\"").c_str());
     system(("wl-copy < \"" + f + "\"").c_str());
     return 0;
@@ -150,10 +152,14 @@ static int do_wallpaper() {
 int main(int argc, char** argv) {
     std::string action;
     std::string argument;
+    std::string extrarg;
     if (argc > 1) {
         action = argv[1];
         if(argc > 2) {
             argument = argv[2];
+        }
+        if(argc > 3){
+            extrarg = argv[3];
         }
     }
     else {
@@ -166,7 +172,7 @@ int main(int argc, char** argv) {
         else return do_vol();
     }
     if(action == "screen"){
-        if(argument == "full") return do_fscreen();
+        if(argument == "full") return do_fscreen(extrarg);
         if(argument == "select") return do_fscreen();
     }
     if(action == "menu"){

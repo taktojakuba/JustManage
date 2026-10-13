@@ -15,7 +15,7 @@
       buildPhase = "make";
       installPhase = ''
         runHook preInstall
-        install -Dm755 jr $out/bin/jm
+        install -Dm755 jm $out/bin/jm
         runHook postInstall
       '';
     };
