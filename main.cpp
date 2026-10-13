@@ -39,7 +39,7 @@ static int do_fscreen(std::string output = "HDMI-A-1") {
     system(("wl-copy < \"" + f + "\"").c_str());
     return 0;
 }
-static void do_autostart() {
+static int do_autostart() {
     system("justbar >/dev/null 2>&1 &");
     system("mako >/dev/null 2>&1 &");
     system("wbg ~/Pictures/Wallpapers/monoforest.png >/dev/null 2>&1 &");
@@ -47,6 +47,7 @@ static void do_autostart() {
     system("wlr-randr --output HDMI-A-1 --mode 1920x1080@119.878998Hz >/dev/null 2>&1 &");
     system("wl-clip-persist --clipboard regular --reconnect-tries 0 >/dev/null 2>&1 &");
     system("wl-paste --type text --watch cliphist store >/dev/null 2>&1 &");
+    return 0;
 }
 static int do_launch() {
     setenv("XCURSOR_THEME", "Future-dark Cursors", 1);
