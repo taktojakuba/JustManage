@@ -57,8 +57,7 @@ static int do_launch() {
            ("unix:path=/run/user/" + std::to_string(getuid()) + "/bus").c_str(),
            1);
     setenv("WLR_RENDERER", "gles2", 1);
-    execlp("jr", "/home/kuba/dwl/dwl", "-s", "/home/kuba/dwl/scripts/autostart", nullptr);
-    do_autostart;
+    execlp("jr", "/home/kuba/dwl/dwl", "-s", "jm system autostart", nullptr);
     return 127;
 }
 
@@ -173,7 +172,7 @@ int main(int argc, char** argv) {
     }
     if(action == "screen"){
         if(argument == "full") return do_fscreen(extrarg);
-        if(argument == "select") return do_fscreen();
+        if(argument == "select") return do_sscreen();
     }
     if(action == "menu"){
         if(argument == "editor") return do_editor();
@@ -181,8 +180,9 @@ int main(int argc, char** argv) {
         if(argument == "power") return do_power();
         if(argument == "powerprofile") return do_powerprofile();
     }
-    if(action == "wm"){
+    if(action == "system"){
         if(argument == "launch") return do_launch();
+        if(argument == "autostart") return do_autostart();
     }
     return 1;
 }
