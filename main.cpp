@@ -58,7 +58,7 @@ static int do_launch() {
            ("unix:path=/run/user/" + std::to_string(getuid()) + "/bus").c_str(),
            1);
     setenv("WLR_RENDERER", "gles2", 1);
-    execlp("jr", "/home/kuba/dwl/dwl", "-s", "jm system autostart", nullptr);
+    execlp("jr", "weebwl", "-s", "jm system autostart", nullptr);
     return 127;
 }
 
